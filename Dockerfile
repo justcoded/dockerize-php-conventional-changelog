@@ -1,4 +1,4 @@
-FROM php:8.1-cli
+FROM php:8.2-cli
 
 RUN apt update && apt install -y git unzip
 RUN apt autoremove
@@ -11,7 +11,8 @@ RUN cd ~ \
     && php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && composer
 
-RUN composer global require marcocesarato/php-conventional-changelog:^1.13.0 
+ARG PHP_CONVENTIONAL_CHANGELOG_VERSION=1.16.0
+RUN composer global require marcocesarato/php-conventional-changelog:^${PHP_CONVENTIONAL_CHANGELOG_VERSION}
 
 ENV PATH="~/.composer/vendor/bin:${PATH}"
 
